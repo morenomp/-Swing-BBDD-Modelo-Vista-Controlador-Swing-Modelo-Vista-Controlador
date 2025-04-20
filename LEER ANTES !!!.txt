@@ -1,0 +1,20 @@
+Cosas a tener en cuenta del programa:
+
+-->	La validación del nombre (si está o no duplicado) la hacemos 
+	mientras se está creando el ser correspondiente. No hay un 
+	"nombreRepetido" o algo así.
+
+-->	A la hora de modificar un Ser, el nombre de este no se puede
+	tocar, sino colapsa.
+
+-->	En JDBC_URL, he especificado que es contra la base de datos 
+	a la que debe hacer las consultas, ya que tuve problemas 
+	con el "Buscar".
+
+-->	La versión en pom.xml es la 23, cambiar si hubiera algún problema
+
+-->	La estructura que he seguido para hacer las tablas fue crear
+	tablas independientes para cada uno de los "seres".
+
+Gracias por leer y espero que esté a la altura el programa.
+Marc.
