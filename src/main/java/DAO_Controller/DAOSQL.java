@@ -179,9 +179,9 @@ public class DAOSQL {
 //UPDATE
 //////////////////////
     //Seguiremos el ejemplo proporcionado por el profesorado:
-    private final String SQL_UPDATE_HUM = "UPDATE " + JDBC_DDBB + "." + JDBC_TABLE_HUM + " SET gender = ?, SET age = ? WHERE (name = ?);";
-    private final String SQL_UPDATE_AND = "UPDATE " + JDBC_DDBB + "." + JDBC_TABLE_AND + " SET rango = ?, SET ice = ? WHERE (name = ?);";
-    private final String SQL_UPDATE_FER = "UPDATE " + JDBC_DDBB + "." + JDBC_TABLE_FER + " SET golf = ? WHERE (name = ?);";
+    private final String SQL_UPDATE_HUM = "UPDATE " + JDBC_DDBB + "." + JDBC_TABLE_HUM + " SET edad = ?, genero = ? WHERE (name = ?);";
+    private final String SQL_UPDATE_AND = "UPDATE " + JDBC_DDBB + "." + JDBC_TABLE_AND + " SET rango = ?, iceAtThePoles = ? WHERE (name = ?);";
+    private final String SQL_UPDATE_FER = "UPDATE " + JDBC_DDBB + "." + JDBC_TABLE_FER + " SET gold = ? WHERE (name = ?);";
     private final String SQL_UPDATE_KLI = "UPDATE " + JDBC_DDBB + "." + JDBC_TABLE_KLI + " SET fuerza = ? WHERE (name = ?);";
     private final String SQL_UPDATE_VUL = "UPDATE " + JDBC_DDBB + "." + JDBC_TABLE_VUL + " SET meditation = ? WHERE (name = ?);";
     private final String SQL_UPDATE_NIB = "UPDATE " + JDBC_DDBB + "." + JDBC_TABLE_NIB + " SET floraOrFish = ? WHERE (name = ?);";
@@ -473,9 +473,9 @@ public class DAOSQL {
 
             conn = connect();
             instruccion = conn.prepareStatement(SQL_UPDATE_HUM);
-            instruccion.setString(1, name);
-            instruccion.setInt(2, edad);
-            instruccion.setString(3, genero);
+            instruccion.setInt(1, edad);
+            instruccion.setString(2, genero);
+            instruccion.setString(3, name);
             registers = instruccion.executeUpdate();
 
         } catch (SQLException ex) {
@@ -611,7 +611,7 @@ public class DAOSQL {
 //-------------------------
 //UPDATE ANDORIANO
 //-------------------------
-    public int updateAndoriano(String name, boolean ice, String rango) throws DAO_Excep {
+    public int updateAndoriano(String name, boolean iceAtThePoles, String rango) throws DAO_Excep {
 
         Connection conn = null;
         PreparedStatement instruccion = null;
@@ -621,9 +621,9 @@ public class DAOSQL {
 
             conn = connect();
             instruccion = conn.prepareStatement(SQL_UPDATE_AND);
-            instruccion.setString(1, name);
-            instruccion.setBoolean(2, ice);
-            instruccion.setString(3, rango);
+            instruccion.setString(1, rango);
+            instruccion.setBoolean(2, iceAtThePoles);
+            instruccion.setString(3, name);
             registers = instruccion.executeUpdate();
 
         } catch (SQLException ex) {
@@ -767,8 +767,9 @@ public class DAOSQL {
 
             conn = connect();
             instruccion = conn.prepareStatement(SQL_UPDATE_FER);
-            instruccion.setString(1, name);
-            instruccion.setInt(2, gold);
+            instruccion.setInt(1, gold);
+            instruccion.setString(2, name);
+            System.out.println("Execute ferengi");
             registers = instruccion.executeUpdate();
 
         } catch (SQLException ex) {
@@ -912,8 +913,8 @@ public class DAOSQL {
 
             conn = connect();
             instruccion = conn.prepareStatement(SQL_UPDATE_KLI);
-            instruccion.setString(1, name);
-            instruccion.setInt(2, fuerza);
+            instruccion.setInt(1, fuerza);
+            instruccion.setString(2, name);
             registers = instruccion.executeUpdate();
 
         } catch (SQLException ex) {
@@ -1057,8 +1058,8 @@ public class DAOSQL {
 
             conn = connect();
             instruccion = conn.prepareStatement(SQL_UPDATE_VUL);
-            instruccion.setString(1, name);
-            instruccion.setInt(2, meditation);
+            instruccion.setInt(1, meditation);
+            instruccion.setString(2, name);
             registers = instruccion.executeUpdate();
 
         } catch (SQLException ex) {
@@ -1202,8 +1203,9 @@ public class DAOSQL {
 
             conn = connect();
             instruccion = conn.prepareStatement(SQL_UPDATE_NIB);
-            instruccion.setString(1, name);
-            instruccion.setString(2, floraOrFish);
+            instruccion.setString(1, floraOrFish);
+            instruccion.setString(2, name);
+            
             registers = instruccion.executeUpdate();
 
         } catch (SQLException ex) {
@@ -1981,55 +1983,55 @@ public class DAOSQL {
 
         if (daoValidP.getPoblacion(p)) { //return boolean de ser y planeta
 
-        System.out.println("[getValidPlanet] 1");
-        
+            System.out.println("[getValidPlanet] 1");
+
 //                Si s es Specie Andoriano
             if (s instanceof Vulcaniano) {
-                
+
                 System.out.println("[getValidPlanet] entra 1r if");
-                
+
                 if (daoValidP.searchSeres(p)) {
-                    
+
                     System.out.println("[getValidPlanet] entra 2ndo if");
-                    
+
                     //coincide en el mismo lugar que un vulcaniano
                     throw new SerExcepcion(" En el " + p.getName() + " existe un Andoriano");
                 }
 //        Si s es tipo Andoriano
             } else if (s instanceof Andoriano) {
-                
+
                 System.out.println("[getValidPlanet] entra 1r else if");
-                
+
                 if (daoValidP.searchSeres(p)) {
-                    
+
                     System.out.println("[getValidPlanet] entra 2ndo if de else if");
-                    
+
                     //coincide en el mismo lugar que un vulcaniano
                     throw new SerExcepcion(" En el " + p.getName() + " existe un Vulcaniano");
                 }
 //            Si es tipo klingon
             } else if (s instanceof Klingon) {
-                
+
                 System.out.println("[getValidPlanet] entra 2ndo else if");
-                
+
 //            Si el clima es de tipo Calido
                 if (p.getClime().equalsIgnoreCase("Calido")) {
-                    
+
                     System.out.println("[getValidPlanet] entra 2ndo if de else if 2");
-                    
+
                     throw new SerExcepcion("No puede vivir en este planeta porque es de clima " + p.getClime() + ".");
                 }
 //            Si s es tipo Nibirianos
             } else if (s instanceof Nibiriano) {
-                
+
                 System.out.println("[getValidPlanet] entra 3er else if");
-                
+
                 Nibiriano n = (Nibiriano) s;
                 // Si es vegetariano, necesita flora roja
                 if (n.esVegetariano() && !p.isFlora()) {
-                    
+
                     System.out.println("[getValidPlanet] entra 2ndo if de else if 3");
-                    
+
                     throw new SerExcepcion("No puede vivir en este planeta porque es no tiene flora.");
                     // Si es carnivoro, necesita fauna marina
                 } else if (n.esCarnivoro() && !p.isAquatic()) {
@@ -2037,14 +2039,14 @@ public class DAOSQL {
                 }
 //            Si s es tipo Ferengi
             } else if (s instanceof Ferengi) {
-                
+
                 System.out.println("[getValidPlanet] entra 4to else if");
-                
+
 //            Si el clima es tipo Frio
                 if (p.getClime().contains("Frio")) {
-                    
+
                     System.out.println("[getValidPlanet] entra 2ndo if de else if 4");
-                    
+
                     System.out.println(s.toString());
                     throw new SerExcepcion("No puede vivir en este planeta porque es de clima " + p.getClime() + ".");
                 }

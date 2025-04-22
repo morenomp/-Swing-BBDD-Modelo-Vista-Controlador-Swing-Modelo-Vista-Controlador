@@ -137,7 +137,7 @@ public class Baja extends javax.swing.JDialog {
         salir.setForeground(new java.awt.Color(51, 51, 51));
         salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/salir 2.jpg"))); // NOI18N
         salir.setBorder(null);
-        salir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        salir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salirActionPerformed(evt);

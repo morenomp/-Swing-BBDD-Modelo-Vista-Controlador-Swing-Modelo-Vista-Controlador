@@ -33,6 +33,10 @@ public class ModificarHumano extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
+        
+        nombreciudadano.setText(c.getName());
+        nombreciudadano.setEnabled(false);
+        nombreplaneta.setEnabled(false);
     }
 
     /**
@@ -73,7 +77,7 @@ public class ModificarHumano extends javax.swing.JDialog {
         modificarhumano.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         modificarhumano.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/modificar.jpg"))); // NOI18N
         modificarhumano.setBorder(null);
-        modificarhumano.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        modificarhumano.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         modificarhumano.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modificarhumanoActionPerformed(evt);
@@ -131,7 +135,7 @@ public class ModificarHumano extends javax.swing.JDialog {
         salir1.setForeground(new java.awt.Color(51, 51, 51));
         salir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/salir 2.jpg"))); // NOI18N
         salir1.setBorder(null);
-        salir1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        salir1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         salir1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salir1ActionPerformed(evt);
@@ -159,14 +163,12 @@ public class ModificarHumano extends javax.swing.JDialog {
         
         DAOSQL daoCH = new DAOSQL();
 
-        //Variables de las propiedades de Humano
         String name = nombreciudadano.getText();
 
-        //Variables que se cambian
+        //Variable a modificar
         String newGenero = (String) generohumano.getSelectedItem();
         int newEdad = (int) edadhumano.getValue();
 
-        //Conseguimos el HashCode de s mediante el nombre
         Ser s = null;
         
         try {
@@ -184,22 +186,25 @@ public class ModificarHumano extends javax.swing.JDialog {
             Logger.getLogger(ModificarHumano.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        // Verificamos que el objeto s sea un Humano antes de castear
+        // Verificaremos que el objeto s sea Humano
         if (s != null && s instanceof Humano) {
+          
+            try {
+                
+                //Actualizamos
+                daoCH.updateHumano(name, newEdad, newGenero);
             
-            //Creamos una variable Humano sh que equivale a Ser s
-            Humano sh = (Humano) s;
-
-            //Actualizamos la informacion
-            sh.setEdad(newEdad);
-            sh.setGenero(newGenero);
+            } catch (DAO_Excep ex) {
+                
+                Logger.getLogger(ModificarFerengi.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             JOptionPane.showMessageDialog(this, "Se ha modificado correctamente el ciudadano",
                     "Ciudadano Modificado", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         
         } else {
-            JOptionPane.showMessageDialog(this, "[ERROR][X] El ser no es un Humano", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "[ERROR][X] No se encontro el ser con ese nombre", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_modificarhumanoActionPerformed
 

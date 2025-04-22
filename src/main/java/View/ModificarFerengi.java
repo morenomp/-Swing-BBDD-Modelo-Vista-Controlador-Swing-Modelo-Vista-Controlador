@@ -31,6 +31,10 @@ public class ModificarFerengi extends javax.swing.JDialog {
 
         setLocationRelativeTo(null);
         setResizable(false);
+        
+        nombreciudadano.setText(s.getName());
+        nombreciudadano.setEnabled(false);
+        nombreplaneta.setEnabled(false);
     }
 
     /**
@@ -115,7 +119,7 @@ public class ModificarFerengi extends javax.swing.JDialog {
         salir1.setForeground(new java.awt.Color(51, 51, 51));
         salir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/salir 2.jpg"))); // NOI18N
         salir1.setBorder(null);
-        salir1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        salir1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         salir1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salir1ActionPerformed(evt);
@@ -143,35 +147,49 @@ public class ModificarFerengi extends javax.swing.JDialog {
         
         DAOSQL daoCF = new DAOSQL();
 
-        //Variables de las propiedades de Ferengi
         String name = nombreciudadano.getText();
         String planeta = (String) nombreplaneta.getSelectedItem();
 
-//        Variable que se modifican
+        //Variable a modificar
         int caoro = (int) oro.getValue();
 
-//        Conseguimos el HashCode mediante el nombre
         Ser s = null;
         
         try {
             
             s = daoCF.getSer(new Ser(name));
             
+            // Verificaremos si "s" es null
+            if (s == null) {
+                throw new Exception("[ERROR][X] No se encontro el ser con ese nombre " + name);
+            }
+            
         } catch (DAO_Excep ex) {
             Logger.getLogger(ModificarFerengi.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(ModificarFerengi.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        //Creamos una variable Ferengi sf que equivale a Ser s
-        Ferengi sf = (Ferengi) s;
-
-        //Actualizamos la informacion
-        sf.setGold(caoro);
         
-        JOptionPane.showMessageDialog(this, "Se ha modificado correctamente el ciudadano",
-                "Ciudadano Modificado", JOptionPane.INFORMATION_MESSAGE);
-        dispose();
+        // Verificaremos que el objeto s sea Ferengi
+        if (s != null && s instanceof Ferengi) {
+            
+            try {
+                
+                //Actualizamos
+                daoCF.updateFerengi(name, caoro);
+            
+            } catch (DAO_Excep ex) {
+                
+                Logger.getLogger(ModificarFerengi.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-
+            JOptionPane.showMessageDialog(this, "Se ha modificado correctamente el ciudadano",
+                    "Ciudadano Modificado", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        
+        } else {
+            JOptionPane.showMessageDialog(this, "[ERROR][X] No se encontro el ser con ese nombre", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_crearhumanoActionPerformed
     //===============================================================================================//
     //||                                                                                           ||//

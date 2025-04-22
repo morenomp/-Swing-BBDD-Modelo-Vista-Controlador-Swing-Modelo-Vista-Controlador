@@ -117,7 +117,7 @@ public class ModificarNibiriano extends javax.swing.JDialog {
         salir1.setForeground(new java.awt.Color(51, 51, 51));
         salir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/salir 2.jpg"))); // NOI18N
         salir1.setBorder(null);
-        salir1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        salir1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         salir1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salir1ActionPerformed(evt);
@@ -145,7 +145,6 @@ public class ModificarNibiriano extends javax.swing.JDialog {
         
         DAOSQL daoCN = new DAOSQL();
 
-        //Variables de las propiedades de Humano
         String name = nombreciudadano.getText();
         String planeta = (String) nombreplaneta.getSelectedItem();
 
@@ -159,21 +158,37 @@ public class ModificarNibiriano extends javax.swing.JDialog {
             
             s = daoCN.getSer(new Ser(name));
             
+            // Verificaremos si "s" es null
+            if (s == null) {
+                throw new Exception("[ERROR][X] No se encontro el ser con ese nombre " + name);
+            }
+            
         } catch (DAO_Excep ex) {
+            Logger.getLogger(ModificarNibiriano.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(ModificarNibiriano.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        //Creamos una variable Nibiriano sn que equivale a Ser s
-        Nibiriano sn = (Nibiriano) s;
+        // Verificaremos que el objeto s sea Nibiriano
+        if (s != null && s instanceof Nibiriano) {
+            
+            try {
+                
+                //Actualizamos
+                daoCN.updateNibiriano(name, comida);
+            
+            } catch (DAO_Excep ex) {
+                
+                Logger.getLogger(ModificarFerengi.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-        //ACtualizamos la informacion
-        sn.setFloraOrFish(comida);
-
-        JOptionPane.showMessageDialog(this, "Se ha modificado correctamente el ciudadano",
-                "Ciudadano Modificado", JOptionPane.INFORMATION_MESSAGE);
-        dispose();
-
-
+            JOptionPane.showMessageDialog(this, "Se ha modificado correctamente el ciudadano",
+                    "Ciudadano Modificado", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        
+        } else {
+            JOptionPane.showMessageDialog(this, "[ERROR][X] No se encontro el ser con ese nombre", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_crearnibirianoActionPerformed
     //===============================================================================================//
     //||                                                                                           ||//

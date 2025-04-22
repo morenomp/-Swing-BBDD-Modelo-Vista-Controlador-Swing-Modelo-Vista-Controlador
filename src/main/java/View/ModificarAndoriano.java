@@ -36,6 +36,10 @@ public class ModificarAndoriano extends javax.swing.JDialog {
 
         setLocationRelativeTo(null);
         setResizable(false);
+        
+        nombreciudadano.setText(c.getName());
+        nombreciudadano.setEnabled(false);
+        nombreplaneta.setEnabled(false);
     }
 
     /**
@@ -88,7 +92,7 @@ public class ModificarAndoriano extends javax.swing.JDialog {
         salir1.setForeground(new java.awt.Color(51, 51, 51));
         salir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/salir 2.jpg"))); // NOI18N
         salir1.setBorder(null);
-        salir1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        salir1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         salir1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salir1ActionPerformed(evt);
@@ -170,10 +174,9 @@ public class ModificarAndoriano extends javax.swing.JDialog {
         
         DAOSQL daoCA = new DAOSQL();
 
-        //Variables de la propiedades Andoriano
         String name = nombreciudadano.getText();
 
-        //Variables que se cambian
+        //Variable a modificar
         String valorRango = (String) rango.getSelectedItem();
         boolean liveice = aenar.isSelected();
 
@@ -184,21 +187,37 @@ public class ModificarAndoriano extends javax.swing.JDialog {
             //obtendremos el nombre del ser
             s = daoCA.getSer(new Ser(name));
             
+            // Verificaremos si "s" es null
+            if (s == null) {
+                throw new Exception("[ERROR][X] No se encontro el ser con ese nombre " + name);
+            }
+            
         } catch (DAO_Excep ex) {
+            Logger.getLogger(ModificarAndoriano.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(ModificarAndoriano.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        //Creamos una variable Andoriano sh que equivale a Humano s
-        Andoriano sa = (Andoriano) s;
+        // Verificaremos que el objeto s sea Andoriano
+        if (s != null && s instanceof Andoriano) {
+            
+            try {
+                
+                //Actualizamos
+                daoCA.updateAndoriano(name, liveice, valorRango);
+            
+            } catch (DAO_Excep ex) {
+                
+                Logger.getLogger(ModificarFerengi.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            JOptionPane.showMessageDialog(this, "Se ha modificado correctamente el ciudadano",
+                    "Ciudadano Modificado", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
         
-        //Actualizamos la informacion
-        sa.setIceAtThePoles(liveice);
-        sa.setRango(valorRango);
-        
-        JOptionPane.showMessageDialog(this, "Se ha modificado correctamente el ciudadano",
-                "Ciudadano Modificado", JOptionPane.INFORMATION_MESSAGE);
-        
-        dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "[ERROR][X] No se encontro el ser con ese nombre", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_crearandorianoActionPerformed
 
     /**
