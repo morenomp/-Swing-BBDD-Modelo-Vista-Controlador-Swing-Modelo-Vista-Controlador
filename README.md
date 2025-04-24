@@ -5,28 +5,35 @@ Los apartados que haremos son:
     Crear Planeta
     Crear Seres
     Borrar Seres/Planetas
-    Buscar Seres/Planetas
     Modificar Seres
+    Buscar Seres/Planetas
 
 # 👀 **Resultado del programa**
 
 ## Menú
-<img src ="./Resultado/1. menu.png" />
+<img src ="./Resultados/1 - menu.png" />
 
 ## Crear Planeta
-<img src ="./Resultado/2. crear planeta.png" />
+<img src ="./Resultados/2 - create planet.png" />
 
 ## Crear Seres
-<img src ="./Resultado/3. crear ser.png" />
+<img src ="./Resultados/3 - create ser.png" />
+<img src ="./Resultados/3.1 - create ser.png" />
+<img src ="./Resultados/3.2 - create ser.png" />
+<img src ="./Resultados/3.3 - create ser.png" />
+<img src ="./Resultados/3.4 - create ser.png" />
+<img src ="./Resultados/3.5 - create ser.png" />
+<img src ="./Resultados/3.6 - create ser.png" />
 
-## Borrar Seres
-<img src ="./Resultado/4. eliminar ser.png" />
+## Borrar Seres/Planetas
+<img src ="./Resultados/4 - delete ser.png" />
+<img src ="./Resultados/4.1 - delete ser.png" />
 
-## Mostrar Lista de Planetas
-<img src ="./Resultado/5. lista planetas.png" />
+## Modificar Seres
+<img src ="./Resultados/5 - modify.png" />
 
-## Mostrar Lista de Seres
-<img src ="./Resultado/6. lista ser.png" />
+## Buscar Seres/Planetas
+<img src ="./Resultados/6 - search.png" />
 
 # 🔗 **Más información**
 
