@@ -10,13 +10,13 @@ Los apartados que haremos son:
 
 # 👀 **Resultado del programa**
 
-## Menú
+## ⚪Menú
 <img src ="./Resultados/1 - menu.png" />
 
-## Crear Planeta
+## 🔵Crear Planeta
 <img src ="./Resultados/2 - create planet.png" />
 
-## Crear Seres
+## 🟢Crear Seres
 <img src ="./Resultados/3 - create ser.png" />
 <img src ="./Resultados/3.1 - create ser.png" />
 <img src ="./Resultados/3.2 - create ser.png" />
@@ -25,14 +25,14 @@ Los apartados que haremos son:
 <img src ="./Resultados/3.5 - create ser.png" />
 <img src ="./Resultados/3.6 - create ser.png" />
 
-## Borrar Seres/Planetas
+## 🔴Borrar Seres/Planetas
 <img src ="./Resultados/4 - delete ser.png" />
 <img src ="./Resultados/4.1 - delete ser.png" />
 
-## Modificar Seres
+## 🟡Modificar Seres
 <img src ="./Resultados/5 - modify.png" />
 
-## Buscar Seres/Planetas
+## 🟣Buscar Seres/Planetas
 <img src ="./Resultados/6 - search.png" />
 
 # 🔗 **Más información**
