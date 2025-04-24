@@ -31,6 +31,7 @@ Los apartados que haremos son:
 
 ## 🟡Modificar Seres
 <img src ="./Resultados/5 - modify.png" />
+<img src ="./Resultados/5.1 - modify.png" />
 
 ## 🟣Buscar Seres/Planetas
 <img src ="./Resultados/6 - search.png" />
